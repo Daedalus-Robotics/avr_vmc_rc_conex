@@ -2,6 +2,7 @@ from threading import Thread
 from time import sleep
 
 import rclpy
+from rclpy import qos
 from rclpy.node import Node
 from std_srvs.srv import SetBool
 from px4_msgs.msg import ManualControlSetpoint
@@ -9,7 +10,7 @@ from px4_msgs.msg import ManualControlSetpoint
 
 class RCConexNode(Node):
     def __init__(self) -> None:
-        super().__init__('rc_conex', namespace='rc_conex')
+        super().__init__('rc_conex')
 
         self.trigger_client = self.create_client(
                 SetBool,
@@ -19,7 +20,7 @@ class RCConexNode(Node):
                 ManualControlSetpoint,
                 '/fmu/out/manual_control_setpoint',
                 self.rc_callback,
-                10
+                qos.qos_profile_sensor_data
         )
 
         self.last_state = False
@@ -29,10 +30,12 @@ class RCConexNode(Node):
 
         self.get_logger().info('Started')
 
-    def rc_callback(message: ManualControlSetpoint) -> None:
+        self.subscription
+
+    def rc_callback(self, message: ManualControlSetpoint) -> None:
         state = message.aux1 > 0.1
 
-        if state != last_state:
+        if state != self.last_state:
             request = SetBool.Request()
             request.data = state
             self.trigger_client.call_async(request)
