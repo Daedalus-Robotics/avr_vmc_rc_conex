@@ -1,0 +1,6 @@
+2024/11/20 17:08:12 Micro started
+2024/11/20 17:08:42 rc_conex.py rc_conex.py
+2024/11/20 17:08:49 rc_conex.py rc_conex.py
+2024/11/20 17:09:01 rc_conex.py rc_conex.py
+2024/11/20 17:09:07 rc_conex.py rc_conex.py
+2024/11/20 17:09:13 rc_conex.py rc_conex.py
